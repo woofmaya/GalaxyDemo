@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Log In</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="css/sb-admin.css" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'
+  type='text/css'>
+
+  <style>
+  .navbar-header{
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .page-header{
+    font-family: 'Open Sans', sans-serif;
+    color: #FFFFFF;
+  }
+  </style>
+
+  <style>
+  body{
+    background-color: #000000;
+  }
+  .centered-form{
+    margin-top: 70px;
+    font-size: 15px;
+  }
+
+  .centered-form .panel{
+
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+    width: 500px;
+    height: 250px;
+  }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div>
+        <div class="row centered-form">
+        <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+        	<div class="panel panel-default">
+        		<div class="panel-heading">
+			    		<h3 class="panel-title" style="font-size:30px" >Log in to Galaxy!</h3>
+			 			</div>
+			 			<div class="panel-body">
+			    		<form role="form">
+
+
+                <div class="form-group">
+			    				Email: <input type="text" name="User Name" id="userInput" class="form-control input-sm" >
+			    			</div>
+
+			    			<div class="row">
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+			    						Password: <input type="password" name="password" id="password" class="form-control input-sm">
+			    					</div>
+			    				</div>
+
+			    			</div>
+
+
+
+			    			<p id ="login" class="btn btn-info btn-block"> Log in! </p>
+
+                <script>
+                var usersRef = new Firebase('https://sign-up.firebaseio.com/');
+
+                document.getElementById("login").onclick = myFunction;
+                function myFunction(){
+                  var email = $('#userInput').val();
+                  var password = $("#password").val();
+
+                  usersRef.authWithPassword({
+                    email    : email,
+                    password : password
+                  }, function(error, authData) {
+                    if (error) {
+                      console.log("Login Failed!", error);
+                      $('#userInput').val('');
+                      $('#password').val('');
+
+                    } else {
+                      console.log("Authenticated successfully with payload:", authData);
+                      var user = "";
+                      for ( var i = 0; i < email.length; i++ ){
+                      if ( email.charAt(i) == "@" ){
+                        break;
+                      }
+                      else if ( email.charAt(i) == "." || email.charAt(i) == "#" || email.charAt(i) == "$" || email.charAt(i) == "[" 
+                          || email.charAt(i) == "]")
+                      {}
+                      else{
+                          user += email.charAt(i);
+                        }
+                      }
+                      window.location.replace("index.html?username="+user);
+                    }
+                  });
+                  };
+                </script>
+
+			    		</form>
+			    	</div>
+	    		</div>
+    		</div>
+    	</div>
+    </div>
+  <!-- /#wrapper -->
+
+  <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+  <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Mentor</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <link href="css/sb-admin.css" rel="stylesheet">
+
+  <!-- Custom Fonts -->
+  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet'
+  type='text/css'>
+
+  <style>
+  .navbar-header{
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  .page-header{
+    font-family: 'Open Sans', sans-serif;
+    color: #FFFFFF;
+  }
+
+  a{
+    font-size: small;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  p{
+    font-size: small;
+    font-family: 'Open Sans', sans-serif;
+  }
+  </style>
+
+</head>
+
+<body>
+    <script>
+        var parseQueryString = function(){
+              var info;
+              var queryString = window.location.search;
+              queryString = queryString.substring(1);
+              var params = {}, queries, temp, i, l;
+
+                // Split into key/value pairs
+                queries = queryString.split("&");
+
+                // Convert the array of strings into an object
+                for ( i = 0, l = queries.length; i < l; i++ ) {
+                    temp = queries[i].split('=');
+                    params[temp[0]] = temp[1];
+                }
+                console.log(params["username"]);
+                return params["username"];
+      }
+      var userData = parseQueryString();
+    </script>
+
+  <div id="wrapper">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav side-nav">
+          <li>
+            <a id = "dashboard"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+            <script>
+                    document.getElementById("dashboard").onclick = myFunction;
+                    function myFunction(){
+                      console.log("Dashboard clicked");
+                      window.location.replace("index.html?username="+userData);
+                  }
+            </script>
+          </li>
+
+          <li class="active">
+            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Find <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="demo" class="collapse">
+              <li>
+                <a id = "mentors">Mentors</a>
+                <script>
+                    document.getElementById("mentors").onclick = myFunction;
+                    function myFunction(){
+                      console.log("Mentors clicked");
+                      window.location.replace("mentors.html?username="+userData);
+                  }
+                </script>
+              </li>
+              <li>
+                <a id = "alumni">Alumni</a>
+                <script>
+                    document.getElementById("alumni").onclick = myFunction;
+                    function myFunction(){
+                      console.log("Alumni clicked");
+                      window.location.replace("alumni.html?username="+userData);
+                  }
+                </script>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+
+             <script>
+            var usersRef = new Firebase('https://sign-up.firebaseio.com/');
+
+            var wrapper = document.createElement("div");
+            wrapper.setAttribute("id", "wrapper");
+
+            var nav = document.createElement("nav");
+            nav.setAttribute("class", "navbar navbar-inverse navbar-fixed-top");
+            nav.setAttribute("role", "navigation");
+            var u1 = document.createElement("u1");
+            u1.setAttribute("class", "nav navbar-right top-nav");
+
+            var u1Alerts = document.createElement("u1");
+            u1.setAttribute("class", "nav navbar-right top-nav");
+
+            var li = document.createElement("li");
+            li.setAttribute("class", "dropdown");
+
+            var li1 = document.createElement("li");
+            li1.setAttribute("class", "dropdown");
+
+            var divHeader = document.createElement("div");
+            divHeader.setAttribute("class", "navbar-header");
+
+            var aHeader = document.createElement("a");
+            aHeader.setAttribute("class", "navbar-brand");
+            aHeader.setAttribute("id", "dashboard");
+
+            var home = document.createTextNode("Galaxy");
+            aHeader.appendChild(home);
+            aHeader.setAttribute("id", "home");
+
+            divHeader.appendChild(aHeader);
+
+
+
+            var aAlert = document.createElement("a");
+            aAlert.setAttribute("href", "#");
+            aAlert.setAttribute("class", "dropdown-toggle");
+            aAlert.setAttribute("data-toggle", "dropdown");
+
+            var iAlert = document.createElement("i");
+            iAlert.setAttribute("class", "fa fa-bell");
+
+            var bCaret1 = document.createElement("b");
+            bCaret1.setAttribute("class", "caret");
+
+            aAlert.appendChild(iAlert);
+            aAlert.appendChild(bCaret1);
+
+            var uAlerts = document.createElement("u1");
+            uAlerts.setAttribute("class", "dropdown-menu alert-dropdown");
+
+            //Insert all notifications here, this below is a dummy:
+
+            var liAlertA = document.createElement("li");
+            var aAlertA = document.createElement("a");
+            var alertName = document.createTextNode("Connect" + "    ");
+
+            var alertSpan = document.createElement("span");
+            alertSpan.setAttribute("class", "label label-primary");
+            var buttonLabel = document.createTextNode("Check");
+            alertSpan.appendChild(buttonLabel);
+            aAlertA.appendChild(alertName);
+            aAlertA.appendChild(alertSpan);
+
+            liAlertA.appendChild(aAlertA);
+            uAlerts.appendChild(liAlertA);
+
+            li1.appendChild(aAlert);
+            li1.appendChild(uAlerts);
+
+            var bCaret = document.createElement("b");
+            bCaret.setAttribute("class", "caret");
+            var a = document.createElement("a");
+            a.setAttribute("class", "dropdown-toggle");
+            a.setAttribute("href", "#");
+            a.setAttribute("data-toggle", "dropdown");
+
+            var iName = document.createElement("i");
+            iName.setAttribute("class", "fa fa-user");
+
+            var name = parseQueryString();
+
+            var n = document.createTextNode("   " + name);
+
+            var bCaret = document.createElement("b");
+            bCaret.setAttribute("class", "caret");
+
+            a.appendChild(iName);
+            a.appendChild(n);
+            a.appendChild(bCaret);
+
+            li.appendChild(a);
+            u1.appendChild(li1);
+            u1.appendChild(li);
+            nav.appendChild(u1);
+            nav.appendChild(divHeader);
+            wrapper.appendChild(nav);
+            document.body.appendChild(wrapper);
+
+            var u1Drop = document.createElement("u1");
+            u1Drop.setAttribute("class", "dropdown-menu");
+
+            var liProfile = document.createElement("li");
+
+            var aProfile = document.createElement("a");
+            aProfile.setAttribute("id", "profile");
+
+            var iProfile = document.createElement("i");
+            iProfile.setAttribute("class", "fa fa-fw fa-user");
+
+            var profile = document.createTextNode("Profile");
+            aProfile.appendChild(iProfile);
+            aProfile.appendChild(profile);
+            liProfile.appendChild(aProfile);
+
+            var liSettings = document.createElement("li");
+
+            var aSettings = document.createElement("a");
+            aSettings.setAttribute("href", "#");
+
+            var iSettings = document.createElement("i");
+            iSettings.setAttribute("class", "fa fa-fw fa-gear");
+
+            var settings = document.createTextNode("Settings");
+            aSettings.appendChild(iSettings);
+            aSettings.appendChild(settings);
+            liSettings.appendChild(aSettings);
+
+
+            var liDivide = document.createElement("li");
+            liDivide.setAttribute("class", "divider");
+
+            var liLogOut = document.createElement("li");
+            var aLogOut = document.createElement("a");
+            aLogOut.setAttribute("href", "login.html");
+
+            var iLogOut = document.createElement("i");
+            iLogOut.setAttribute("class", "fa fa-fw fa-power-off");
+            aLogOut.appendChild(iLogOut);
+            aLogOut.appendChild(iLogOut);            
+
+            var logOut = document.createTextNode("Log Out");
+            aLogOut.appendChild(logOut);
+            liLogOut.appendChild(aLogOut);
+
+            u1Drop.appendChild(liProfile);
+            u1Drop.appendChild(liSettings);
+            u1Drop.appendChild(liDivide);
+            u1Drop.appendChild(liLogOut);
+            li.appendChild(u1Drop);
+
+            document.getElementById("home").onclick = homeFunction;
+              function homeFunction(){
+                console.log("Dashboard clicked");
+                window.location.replace("index.html?username="+userData);
+              }
+
+            document.getElementById("profile").onclick = profileFunction;
+            function profileFunction(){
+              console.log("profile clicked");
+              window.location.replace("profile.html?username="+userData);
+            }
+
+        </script>
+
+    <script>
+    var usersRef = new Firebase('https://sign-up.firebaseio.com/');
+
+    var wrapper = document.createElement("div");
+    wrapper.setAttribute("id", "wrapper");
+
+    var container = document.createElement("div");
+    container.setAttribute("class", "container");
+
+    var row = document.createElement("div");
+    row.setAttribute("class", "row");
+
+    var headerDiv = document.createElement("div");
+    headerDiv.setAttribute("class", "col-lg-12");
+
+    var headerTag = document.createElement("h1");
+    headerTag.setAttribute("class", "page-header");
+
+    var headerText = document.createTextNode("Mentors");
+
+    headerTag.appendChild(headerText);
+    headerDiv.appendChild(headerTag);
+
+    row.appendChild(headerDiv);
+
+    usersRef.once("value", function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+
+        var key = childSnapshot.key();
+        var childData = childSnapshot.val();
+
+        if(childData.identification === "mentor" )
+        {
+          var div = document.createElement("div");
+          div.setAttribute("class", "col-lg-3 col-md-4 col-xs-6 thumb");
+
+          var img = document.createElement("img");
+          img.setAttribute("class", "img-responsive");
+
+          var a = document.createElement("p");
+          a.setAttribute("class", "thumbnail");
+          // a.setAttribute("href", "mailto:" + childData.email);
+
+          var text1 = document.createTextNode(childData.text);
+          a.appendChild(text1);
+
+          a.setAttribute("id", childData.name)
+          div.appendChild(a);
+          row.appendChild(div);
+
+          var state = 0;
+
+          document.getElementById(childData.name).onmouseover=function(){myFunction()};
+          document.getElementById(childData.name).onmouseout = function(){myFunction2()};
+
+
+          function myFunction() {
+            document.getElementById(childData.name).onclick = function(){buttonFunction()};
+            if ( state == 1 ){
+              buttonFunction();
+              return;
+            }
+            var str = "Name: " + "<br>" + childData.name + "<br>" + "<br>" + "<br>";
+            str+= "Email: " + "<br>" + childData.email;
+            document.getElementById(childData.name).innerHTML = str;
+            document.getElementById(childData.name).style.fontSize = "large";
+          };
+
+          function myFunction2(){
+            if ( state == 1 ){
+              buttonFunction();
+              return;
+            }
+            document.getElementById(childData.name).innerHTML = childData.text;
+            document.getElementById(childData.name).style.fontSize = "small";
+          };
+
+          function buttonFunction(){
+            state = 1;
+            document.getElementById(childData.name).onclick = function(){returnFunction()};
+            document.getElementById(childData.name).innerHTML = "";
+            var pButton = document.createElement("p");
+
+            var nextLine = document.createElement("br");
+            var nextLine2 = document.createElement("br");
+            var nextLine3 = document.createElement("br");
+
+            pButton.appendChild(nextLine);
+
+            // <button type="button" class="btn btn-lg btn-default"><a href = "index.html">Default</a></button>
+
+            var emailButton = document.createElement("button");
+            emailButton.setAttribute("class", "btn btn-lg btn-default btn-block");
+            var emailTextA = document.createElement("a");
+            emailTextA.setAttribute("id", "send")
+            emailTextA.setAttribute("href", "index.html");
+            var emailText = document.createTextNode("Email");
+            emailTextA.appendChild(emailText);
+
+            emailButton.appendChild(emailTextA);
+            pButton.appendChild(emailButton);
+
+            var connectButton = document.createElement("button");
+            connectButton.setAttribute("type", "button");
+            connectButton.setAttribute("class", "btn btn-lg btn-info btn-block");
+            var connectTextA = document.createElement("a");
+            connectTextA.setAttribute("id", "toConnect");
+            var connectText = document.createTextNode("Connect");
+            connectTextA.appendChild(connectText);
+
+            connectButton.appendChild(connectTextA);
+            pButton.appendChild(connectButton);
+
+
+            var followButton = document.createElement("button");
+            followButton.setAttribute("type", "button");
+            followButton.setAttribute("class", "btn btn-lg btn-primary btn-block");
+            var followTextA = document.createElement("a");
+            followTextA.setAttribute("id", "toFollow");
+            var followText = document.createTextNode("Follow");
+            followTextA.appendChild(followText);
+
+            followButton.appendChild(followTextA);
+            pButton.appendChild(followButton);
+
+            document.getElementById(childData.name).appendChild(pButton);
+          };
+
+          function returnFunction(){
+            state = 0;
+            myFunction();
+            return;
+          }
+         }
+        });
+
+      });
+
+    container.appendChild(row);
+    wrapper.appendChild(container);
+    document.body.appendChild(wrapper);
+
+    </script>
+
+  </div>
+  <!-- /#wrapper -->
+
+  <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
